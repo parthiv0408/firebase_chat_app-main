@@ -42,7 +42,10 @@ class _ChatScreenState extends State<ChatScreen> {
       groupChatId = '${widget.data!['user_id']}-${userData['user_id']}';
     }
     setState(() {});
-    users = FirebaseFirestore.instance.collection('messages').doc(groupChatId).collection("chat");
+    users = FirebaseFirestore.instance
+        .collection('messages')
+        .doc(groupChatId)
+        .collection("chat");
   }
 
   @override
@@ -53,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: ListTile(
           contentPadding: EdgeInsets.zero,
           leading: widget.data!['image'] == null
-              ? const ClipOval(
+              ? ClipOval(
                   child: Icon(
                     Icons.person,
                     color: Colors.red,
@@ -74,21 +77,28 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: users == null
-                ? const SizedBox()
+                ? SizedBox()
                 : StreamBuilder<QuerySnapshot>(
-                    stream: users!.orderBy('time', descending: true).snapshots(),
-                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    stream:
+                        users!.orderBy('time', descending: true).snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
-                        if (!snapshot.hasData) return const Text("No Chat");
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.connectionState ==
+                              ConnectionState.active ||
+                          snapshot.connectionState == ConnectionState.done) {
+                        if (!snapshot.hasData) return Text("No Chat");
                         return ListView(
                           reverse: true,
-                          padding: const EdgeInsets.all(15),
+                          padding: EdgeInsets.all(15),
                           children: snapshot.data!.docs.map<Widget>(
                             (doc) {
-                              Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-                              return data['sender_id'] != userData['user_id'] ? generateReceiverLayout(doc) : generateSenderLayout(doc);
+                              Map<String, dynamic> data =
+                                  doc.data()! as Map<String, dynamic>;
+                              return data['sender_id'] != userData['user_id']
+                                  ? generateReceiverLayout(doc)
+                                  : generateSenderLayout(doc);
                             },
                           ).toList(),
                         );
@@ -99,22 +109,23 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10).copyWith(top: 0),
+            padding: EdgeInsets.all(10).copyWith(top: 0),
             child: TextField(
               controller: message,
               decoration: InputDecoration(
                 hintText: "Message",
-                contentPadding: const EdgeInsets.symmetric(horizontal: 15),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderSide: BorderSide(color: Colors.blue),
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
                     sendMessage();
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.send,
                     size: 30,
                     color: Colors.blue,
@@ -129,20 +140,22 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget generateReceiverLayout(DocumentSnapshot documentSnapshot) {
-    Map<String, dynamic> data = documentSnapshot.data()! as Map<String, dynamic>;
+    Map<String, dynamic> data =
+        documentSnapshot.data()! as Map<String, dynamic>;
     return Wrap(
       alignment: WrapAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.all(10),
-          margin: EdgeInsets.only(top: 10, right: MediaQuery.of(context).size.width * 0.35),
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.only(
+              top: 10, right: MediaQuery.of(context).size.width * 0.35),
           decoration: BoxDecoration(
             color: Colors.blue,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
             data['text'],
-            style: const TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 15),
           ),
         ),
       ],
@@ -150,20 +163,22 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget generateSenderLayout(DocumentSnapshot documentSnapshot) {
-    Map<String, dynamic> data = documentSnapshot.data()! as Map<String, dynamic>;
+    Map<String, dynamic> data =
+        documentSnapshot.data()! as Map<String, dynamic>;
     return Wrap(
       alignment: WrapAlignment.end,
       children: [
         Container(
-          padding: const EdgeInsets.all(10),
-          margin: EdgeInsets.only(top: 10, left: MediaQuery.of(context).size.width * 0.35),
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.only(
+              top: 10, left: MediaQuery.of(context).size.width * 0.35),
           decoration: BoxDecoration(
             color: Colors.blue,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
             data['text'],
-            style: const TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 15),
           ),
         ),
       ],
@@ -179,6 +194,8 @@ class _ChatScreenState extends State<ChatScreen> {
     }).then((value) {
       debugPrint("Message Send");
       message.clear();
-    }).catchError((error) => debugPrint("Failed to send message: $error"));
+    }).catchError((error) {
+      debugPrint("Failed to send message: $error");
+    });
   }
 }

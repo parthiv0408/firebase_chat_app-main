@@ -39,7 +39,8 @@ class _LogInScreenState extends State<LogInScreen> {
                 decoration: InputDecoration(
                   hintText: "Enter Email",
                   labelText: "Email",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15)),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: const BorderSide(color: Colors.blue),
@@ -52,7 +53,8 @@ class _LogInScreenState extends State<LogInScreen> {
                 decoration: InputDecoration(
                   hintText: "Enter Password",
                   labelText: "Password",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15)),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: const BorderSide(color: Colors.blue),
@@ -65,7 +67,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   loginUser();
                 },
                 style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(const Size(230, 45)),
+                  minimumSize: WidgetStateProperty.all(const Size(230, 45)),
                 ),
                 child: const Text("Log In"),
               ),
@@ -100,13 +102,15 @@ class _LogInScreenState extends State<LogInScreen> {
 
       if (user!.emailVerified) {
         DocumentSnapshot data = await users.doc(user!.uid).get();
-        debugPrint("User Is Login ------------------>>> ${jsonEncode(data.data())}");
+        debugPrint(
+            "User Is Login ------------------>>> ${jsonEncode(data.data())}");
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('login_data', jsonEncode(data.data()));
         navigator();
       } else {
-        debugPrint('Please verified your email ----------------------------------->>>>>>');
+        debugPrint(
+            'Please verified your email ----------------------------------->>>>>>');
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {

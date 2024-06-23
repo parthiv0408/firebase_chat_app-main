@@ -59,7 +59,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: InputDecoration(
               hintText: "Enter Full Name",
               labelText: "Full Name",
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: const BorderSide(color: Colors.blue),
@@ -72,7 +73,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: InputDecoration(
               hintText: "Enter Email",
               labelText: "Email",
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: const BorderSide(color: Colors.blue),
@@ -85,7 +87,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: InputDecoration(
               hintText: "Enter Password",
               labelText: "Password",
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: const BorderSide(color: Colors.blue),
@@ -98,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               userSignUp();
             },
             style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all(const Size(230, 45)),
+              minimumSize: WidgetStateProperty.all(const Size(230, 45)),
             ),
             child: const Text("Sign Up"),
           ),

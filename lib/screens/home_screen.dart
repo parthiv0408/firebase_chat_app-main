@@ -20,8 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    getData();
+   getData();
     super.initState();
   }
 
@@ -55,16 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return const Text('Error');
+              return  Text('Error');
             } else if (snapshot.hasData) {
               return ListView(
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                   return userData['user_id'] == data['user_id']
-                      ? const SizedBox()
+                      ?  SizedBox()
                       : ListTile(
                           onTap: () {
                             Navigator.push(
