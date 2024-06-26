@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-   getData();
+    getData();
     super.initState();
   }
 
@@ -55,23 +55,23 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
-          } else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
+          } else if (snapshot.connectionState == ConnectionState.active ||
+              snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return  Text('Error');
+              return Text('Error');
             } else if (snapshot.hasData) {
               return ListView(
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                  Map<String, dynamic> data =
+                      document.data()! as Map<String, dynamic>;
                   return userData['user_id'] == data['user_id']
-                      ?  SizedBox()
+                      ? SizedBox()
                       : ListTile(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChatScreen(
-                                  data: data,
-                                ),
+                                builder: (context) => ChatScreen(data: data),
                               ),
                             );
                           },
