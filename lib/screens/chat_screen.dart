@@ -153,10 +153,7 @@ class _ChatScreenState extends State<ChatScreen> {
             color: Colors.blue,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Text(
-            data['text'],
-            style: TextStyle(fontSize: 15),
-          ),
+          child: Text(data['text'], style: TextStyle(fontSize: 15)),
         ),
       ],
     );
